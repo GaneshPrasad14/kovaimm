@@ -17,8 +17,8 @@ router.get('/profile/:id', getProfile); // Get single profile
 router.get('/search/:type', searchProfiles); // Search profiles
 
 // Admin only routes - require authentication
-router.post('/', authenticateAdmin, upload.single('image'), createProfile); // Create new profile
-router.put('/:id', authenticateAdmin, upload.single('image'), updateProfile); // Update profile
+router.post('/', authenticateAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'horoscopeImage', maxCount: 1 }]), createProfile); // Create new profile
+router.put('/:id', authenticateAdmin, upload.fields([{ name: 'image', maxCount: 1 }, { name: 'horoscopeImage', maxCount: 1 }]), updateProfile); // Update profile
 router.delete('/:id', authenticateAdmin, deleteProfile); // Delete profile
 
 module.exports = router;
