@@ -39,6 +39,9 @@ const profileSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  horoscopeImage: {
+    type: String, // URL to uploaded horoscope image
+  },
   image: {
     type: String, // Base64 encoded image or URL
   },
