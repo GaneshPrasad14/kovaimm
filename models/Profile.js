@@ -35,10 +35,6 @@ const profileSchema = new mongoose.Schema({
     required: true,
     enum: ['male', 'female']
   },
-  horoscope: {
-    type: String,
-    trim: true
-  },
   horoscopeImage: {
     type: String, // URL to uploaded horoscope image
   },
