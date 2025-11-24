@@ -29,9 +29,14 @@ const createProfile = async (req, res) => {
   try {
     const profileData = req.body;
 
-    // Handle uploaded image
-    if (req.file) {
-      profileData.image = `/uploads/${req.file.filename}`;
+    // Handle uploaded images
+    if (req.files) {
+      if (req.files.image && req.files.image[0]) {
+        profileData.image = `/uploads/${req.files.image[0].filename}`;
+      }
+      if (req.files.horoscopeImage && req.files.horoscopeImage[0]) {
+        profileData.horoscopeImage = `/uploads/${req.files.horoscopeImage[0].filename}`;
+      }
     }
 
     // Calculate age from date of birth
@@ -62,9 +67,14 @@ const updateProfile = async (req, res) => {
   try {
     const updateData = { ...req.body };
 
-    // Handle uploaded image
-    if (req.file) {
-      updateData.image = `/uploads/${req.file.filename}`;
+    // Handle uploaded images
+    if (req.files) {
+      if (req.files.image && req.files.image[0]) {
+        updateData.image = `/uploads/${req.files.image[0].filename}`;
+      }
+      if (req.files.horoscopeImage && req.files.horoscopeImage[0]) {
+        updateData.horoscopeImage = `/uploads/${req.files.horoscopeImage[0].filename}`;
+      }
     }
 
     // Recalculate age if date of birth is being updated
