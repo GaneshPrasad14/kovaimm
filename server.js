@@ -15,6 +15,7 @@ const corsOptions = {
   origin: [
     'https://kovaimudaliyarmatrimony.com',
     'http://localhost:3000', // For development frontend
+    'http://localhost:8080', // For Vite dev server
     'http://localhost:5000'  // For backend itself if needed
   ],
   credentials: true,
