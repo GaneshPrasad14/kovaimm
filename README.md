@@ -7,7 +7,7 @@ Backend API for the Kovai Marriages Bloom matrimonial website built with Node.js
 - **Profile Management**: CRUD operations for bride and groom profiles
 - **Admin Authentication**: JWT-based authentication for admin users
 - **Search & Filter**: Advanced search functionality for profiles
-- **Image Upload**: Support for profile images (base64 encoded)
+- **Image Upload**: Images stored as Base64 in MongoDB (persistent storage)
 - **CORS Enabled**: Configured for frontend integration
 
 ## Tech Stack
@@ -54,6 +54,16 @@ The server will start on `http://localhost:5000`
 | `ADMIN_USERNAME` | Admin username | `admin` |
 | `ADMIN_PASSWORD` | Admin password | `admin123` |
 | `PORT` | Server port | `5000` |
+
+## Image Storage
+
+Images are stored directly in MongoDB as Base64-encoded strings. This ensures:
+- **Persistence**: Images persist across server restarts and deployments
+- **No file system dependency**: Works on ephemeral file systems (Render, Heroku, etc.)
+- **No external service needed**: Uses your existing MongoDB Atlas database
+- **Automatic backup**: Images are backed up with your database
+
+**Note**: Each image is limited to 5MB. Images are automatically converted to Base64 format when uploaded
 
 ## API Endpoints
 
@@ -114,7 +124,7 @@ const profiles = await response.json();
   familyIncome: String,
   gender: String (required, enum: ['male', 'female']),
   horoscope: String,
-  image: String, // Base64 encoded
+  image: String, // Base64 encoded data URI
   otherDetails: String,
   type: String (required, enum: ['bride', 'groom']),
   age: Number (auto-calculated),
