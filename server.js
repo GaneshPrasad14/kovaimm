@@ -25,8 +25,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from uploads directory
-app.use('/uploads', express.static('uploads'));
+// Note: Images are now stored as Base64 in MongoDB, no static file serving needed
 
 // Routes
 app.use('/api/profiles', profileRoutes);
