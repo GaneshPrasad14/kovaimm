@@ -1,5 +1,11 @@
 const Profile = require('../models/Profile');
 
+// Helper function to convert file buffer to Base64 data URI
+const bufferToBase64 = (buffer, mimetype) => {
+  const base64 = buffer.toString('base64');
+  return `data:${mimetype};base64,${base64}`;
+};
+
 // Get all profiles by type (bride/groom)
 const getProfiles = async (req, res) => {
   try {
@@ -29,13 +35,15 @@ const createProfile = async (req, res) => {
   try {
     const profileData = req.body;
 
-    // Handle uploaded images
+    // Handle uploaded images - convert to Base64 and store in MongoDB
     if (req.files) {
       if (req.files.image && req.files.image[0]) {
-        profileData.image = `/uploads/${req.files.image[0].filename}`;
+        const file = req.files.image[0];
+        profileData.image = bufferToBase64(file.buffer, file.mimetype);
       }
       if (req.files.horoscopeImage && req.files.horoscopeImage[0]) {
-        profileData.horoscopeImage = `/uploads/${req.files.horoscopeImage[0].filename}`;
+        const file = req.files.horoscopeImage[0];
+        profileData.horoscopeImage = bufferToBase64(file.buffer, file.mimetype);
       }
     }
 
@@ -67,13 +75,15 @@ const updateProfile = async (req, res) => {
   try {
     const updateData = { ...req.body };
 
-    // Handle uploaded images
+    // Handle uploaded images - convert to Base64 and store in MongoDB
     if (req.files) {
       if (req.files.image && req.files.image[0]) {
-        updateData.image = `/uploads/${req.files.image[0].filename}`;
+        const file = req.files.image[0];
+        updateData.image = bufferToBase64(file.buffer, file.mimetype);
       }
       if (req.files.horoscopeImage && req.files.horoscopeImage[0]) {
-        updateData.horoscopeImage = `/uploads/${req.files.horoscopeImage[0].filename}`;
+        const file = req.files.horoscopeImage[0];
+        updateData.horoscopeImage = bufferToBase64(file.buffer, file.mimetype);
       }
     }
 
